@@ -1,0 +1,20 @@
+{
+    "name": "modules/user",
+    "description": "This is a user module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ajay Bhosale",
+            "email": "ajay.bhosale@silicus.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Modules\\User": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "Illuminate/support": "~5"
+    }
+}

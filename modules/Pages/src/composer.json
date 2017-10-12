@@ -1,0 +1,20 @@
+{
+    "name": "modules/pages",
+    "description": "This is a pages module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vivek Kale",
+            "email": "vivek.kale@silicus.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Modules\\Pages": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "Illuminate/support": "~5"
+    }
+}

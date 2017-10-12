@@ -1,0 +1,130 @@
+/** 
+ *@author      : Swapnil Patil <swapnilj.patil@silicus.com>
+ *@description : function to check time elaps and call userOffline/userOnline function 
+ */
+
+	var IDLE_TIMEOUT = 60; //seconds
+	var _idleSecondsCounter = 0;
+	document.onclick = function() {
+	    _idleSecondsCounter = 0;
+	};
+	document.onmousemove = function() {
+	    _idleSecondsCounter = 0;
+	};
+	document.onkeypress = function() {
+	    _idleSecondsCounter = 0;
+	};
+//	window.setInterval(CheckIdleTime, 1000);
+
+function CheckIdleTime() {
+    _idleSecondsCounter++;
+    var oPanel = document.getElementById("SecondsUntilExpire");
+    if (oPanel)
+        oPanel.innerHTML = (IDLE_TIMEOUT - _idleSecondsCounter) + "";
+    if (_idleSecondsCounter >= IDLE_TIMEOUT) 
+    {
+    	userOffline();  	// User is offline if event not happen 
+    }
+    else
+    {
+    	userOnline();		// User is Online if event heppen on page  
+    }
+}
+
+
+/** 
+ *@author      : Swapnil Patil <swapnilj.patil@silicus.com>
+ *@description : function to change user online status to offline 
+ */
+
+function userOffline()
+{
+  var flag = '0';
+  $.ajax({
+	  	 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+	     type:'POST',
+	     url:'/user/offline',
+	     data:{is_offline:flag},
+  		 success: function(data)
+  		 {
+  			 
+  		 }
+  });
+}
+
+/** 
+ *@author      : Swapnil Patil <swapnilj.patil@silicus.com>
+ *@description : function to change user offline status to online 
+ */
+
+function userOnline()
+{
+ var flag = '1';
+ $.ajax({
+	     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+	     type:'POST',
+	     url:'/user/online',
+	     data:{is_online:flag},
+  		 success: function(data)
+  		 {
+  			 
+  		 }
+  });
+}
+
+
+
+
+$(document).ready(function () {
+
+    $('iframe#upload_target').load(function () {
+        var bn = $('iframe#upload_target').contents().find('#filesMessage').html();
+        $('#iframeText').html(bn);
+    });
+    
+    var loginForm = $("#loginForm");
+    loginForm.submit(function(e) {
+		$(".login-link").addClass("open");
+		e.preventDefault();
+		
+		var formData = loginForm.serialize();
+		
+		$('#form-errors-username').html("");
+		$("#form-errors-password").html("");
+		$("#username-div").removeClass("has-error");
+		$("#password-div").removeClass("has-error");
+              
+        $.ajax({
+            url: '/login',
+            type: 'POST',
+            data: formData,
+            success: function(data) {            
+            	$(".login-link").removeClass("open");
+            	//window.location.href = "/login";
+            	window.location = '/';
+            	//location.reload();
+               
+            },
+            error: function(data) {            	
+            	$(".login-link").addClass("open");
+                console.log(data.responseText);
+                var obj = jQuery.parseJSON(data.responseText);
+                if (obj.username) {
+                	$("#username-div").addClass("has-error");
+                	$('#form-errors-username').html(obj.username);
+                }
+                if (obj.password) {
+                    $("#password-div").addClass("has-error");
+                    $("#form-errors-password").html(obj.password);
+                }
+                if (obj.error) {
+                   // $("#login-errors").addClass("has-error");
+                   // $('#form-login-errors').html(obj.error);
+                }
+            }
+        });
+    });
+
+
+    
+});

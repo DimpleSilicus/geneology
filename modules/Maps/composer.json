@@ -1,0 +1,20 @@
+{
+    "name": "modules/Maps",
+    "description": "This is a Maps module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Swapnil Patil",
+            "email": "swapnilj.patil@silicus.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Modules\\Maps": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "Illuminate/support": "~5"
+    }
+}

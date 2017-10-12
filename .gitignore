@@ -1,0 +1,5 @@
+/.env
+/storage/framework/views
+/storage/users_uploaded_files/pictures/amolsavat_7
+/modules/Profile/src/Controller/*.bak
+/modules/Maps/src/Views/*.bak

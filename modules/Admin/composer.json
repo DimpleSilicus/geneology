@@ -1,0 +1,21 @@
+{
+    "name": "Admin Portal",
+    "description": "This is an admin portal",
+    "keywords": ["Admin"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ajay Bhosale",
+            "email": "ajay.bhosale@silicus.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0",
+        "illuminate/support": "5.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Module\\Admin": "src/"
+        }
+    }
+}
